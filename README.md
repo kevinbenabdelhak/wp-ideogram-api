@@ -1,4 +1,4 @@
-# WP Ideogram API - Génération Automatisée d'Images Mise en Avant
+# WP Ideogram API : Générer des images mises en avant sur WordPress
 
 **Contributors:** kevinbenabdelhak  
 **Tags:** image, API, featured image, bulk actions  
