@@ -17,6 +17,8 @@ Des fonctionnalités avancées pour gérer les images mises en avant en utilisan
 
 WP Ideogram API est un plugin vous permettant de générer automatiquement des images mises en avant pour vos publications en utilisant l'API Ideogram. Automatisez la gestion visuelle de votre site sans effort.
 
+[![Voir le tutoriel](https://img.youtube.com/vi/dBRef1YtBig/maxresdefault.jpg)](https://www.youtube.com/watch?v=dBRef1YtBig&ab_channel=KevinBenabdelhak)
+
 #### Fonctionnalités principales :
 1. **Clé API** : Configurez facilement votre clé API via la section des réglages.
 2. **Actions Groupées** : Ajoutez un bouton d'action groupée pour générer des images mises en avant pour plusieurs publications en même temps.
