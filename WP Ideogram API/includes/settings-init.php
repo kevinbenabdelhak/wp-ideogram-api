@@ -5,12 +5,12 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-
-// enregistrer les réglages
+// Enregistrer les réglages
 function wp_ideogram_settings_init() {
     register_setting('wp_ideogram_options_group', 'wp_ideogram_api_key', 'sanitize_text_field');
     register_setting('wp_ideogram_options_group', 'wp_ideogram_additional_text', 'sanitize_text_field');
     register_setting('wp_ideogram_options_group', 'wp_ideogram_aspect_ratio', 'sanitize_text_field');
+    register_setting('wp_ideogram_options_group', 'wp_ideogram_compression_level', 'intval'); // Nouveau réglage pour le niveau de compression
 
     add_settings_section(
         'wp_ideogram_api_section',
@@ -42,9 +42,29 @@ function wp_ideogram_settings_init() {
         'wp-ideogram',
         'wp_ideogram_api_section'
     );
+
+    add_settings_field(
+        'wp_ideogram_compression_level',
+        'Niveau de compression de l\'image (0-10)',
+        'wp_ideogram_compression_level_callback',
+        'wp-ideogram',
+        'wp_ideogram_api_section'
+    );
 }
 add_action('admin_init', 'wp_ideogram_settings_init');
 
+function wp_ideogram_compression_level_callback() {
+    $compression_level = get_option('wp_ideogram_compression_level', 5); // Valeur par défaut 5
+    echo '<input type="range" id="compression_level" name="wp_ideogram_compression_level" min="0" max="10" value="' . esc_attr($compression_level) . '">';
+    echo '<span id="compression_value">' . esc_attr($compression_level) . '</span>';
+    ?>
+    <script type="text/javascript">
+        document.getElementById('compression_level').addEventListener('input', function() {
+            document.getElementById('compression_value').textContent = this.value;
+        });
+    </script>
+    <?php
+}
 function wp_ideogram_api_section_callback() {
     echo 'Entrez vos paramètres pour Ideogram API.';
 }
