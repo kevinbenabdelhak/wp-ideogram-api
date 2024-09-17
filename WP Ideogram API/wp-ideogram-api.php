@@ -8,7 +8,7 @@
 
  * Description: WP Ideogram API est un plugin qui génère vos images mises en avant sur vos publications en passant par l'API d'Ideogram.
 
- * Version: 1.1
+ * Version: 1.2
 
  * Author: Kevin Benabdelhak
 
@@ -39,3 +39,4 @@ require_once plugin_dir_path(__FILE__) . 'includes/settings-init.php';
 require_once plugin_dir_path(__FILE__) . 'includes/bulk-action-js.php';
 
 require_once plugin_dir_path(__FILE__) . 'includes/ajax-handler.php';
+

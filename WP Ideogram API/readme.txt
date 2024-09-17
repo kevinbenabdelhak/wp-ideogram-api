@@ -4,7 +4,7 @@ Tags: image, API, featured image, bulk actions
 Requires at least: 5.0
 Tested up to: 6.6.2
 Requires PHP: 7.0
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Des fonctionnalités avancées pour gérer les images mises en avant en utilisant l'API Ideogram.
@@ -20,7 +20,7 @@ WP Ideogram API est un plugin vous permettant de générer automatiquement des i
 3. **Communication API** : Interagissez sans problème avec l'API d'Ideogram pour générer des images en fonction des titres de vos posts.
 4. **Prompt personnalisable** : Ajoutez des informations supplémentaires dans le prompt
 5. **Définissez le format** : Il y a une dizaine de formats d'image que vous pouvez sélectionner dans la page d'option
-6. **Compresser l'image** : Choisissez un taux de compression ( entre 0 et 10 ) pour réduire le poids des images.7. **Conversion automatique** : Le plugin convertit automatiquement le PNG d'Ideogram en JPG.
+6. **Compresser l'image** : Choisissez une qualité d'image ( entre 0 et 10 ) pour réduire le poids.7. **Conversion automatique** : Le plugin convertit automatiquement le PNG d'Ideogram en JPG.8. **Remplissage des attributs d'images** : Les ALT et title sont remplies automatiquement (en fonction du titre de votre publication) 
 == Installation ==
 1. **Téléchargez le fichier ZIP du plugin :**
    Depuis la page de WP Ideogram API, téléchargez le fichier ZIP du plugin : https://kevin-benabdelhak.fr/plugins/wp-ideogram-api/ 
@@ -44,7 +44,7 @@ Vous pouvez obtenir une clé API en vous inscrivant sur le site d'Ideogram et en
 = Que fait exactement ce plugin avec mes publications ? =
 Pour chaque publication sélectionnée, le plugin envoie le titre de la publication à l'API Ideogram. L'API génère une image en fonction de ce titre, télécharge l'image avant de la définir comme image mise en avant pour la publication.
 
-== Changelog === 1.1 =* Conversion automatique en JPG* Compresser l'image (de 0 à 10) et réduire son poids 
+== Changelog === 1.2 =* Alt et Title automatiques sur les images= 1.1 =* Conversion automatique en JPG* Compresser l'image (de 0 à 10) et réduire son poids 
 = 1.0 =
 * Premier lancement du plugin.
 * Ajout de la gestion des actions groupées pour la génération d'images mises en avant.

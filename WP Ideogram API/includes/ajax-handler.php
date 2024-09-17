@@ -1,6 +1,5 @@
 <?php
 
-
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -12,7 +11,7 @@ function generate_featured_image_action() {
     $post_title = get_the_title($post_id);
     $additional_text = get_option('wp_ideogram_additional_text', '');
     $aspect_ratio = get_option('wp_ideogram_aspect_ratio', 'ASPECT_10_16');
-    $compression_level = intval(get_option('wp_ideogram_compression_level', 5)); // Obtenir le niveau de compression
+    $quality_level = intval(get_option('wp_ideogram_quality_level', 5)); // niveau de qualité (inversé)
 
     $prompt = sanitize_text_field($post_title . ' ' . $additional_text);
 
@@ -78,8 +77,8 @@ function generate_featured_image_action() {
             }
 
             // Compression de l'image
-            $quality = 100 - ($compression_level * 10); 
-            imagejpeg($image, $tmp_jpeg, $quality);
+            $quality = ($quality_level * 10); // Convertir la qualité utilisateur en compression (inversé)
+            imagejpeg($image, $tmp_jpeg, 100 - $quality);
             imagedestroy($image);
             @unlink($tmp); 
 
@@ -94,7 +93,19 @@ function generate_featured_image_action() {
                 wp_send_json_error(['data' => 'Erreur lors de l\'upload de l\'image.']);
             }
 
-            // Supprimer le fichier temporaire compressé
+            // mettre à jour les attributs alt/ title
+            $attachment_data = [
+                'ID' => $media_id,
+                'post_title' => $post_title,
+                'post_excerpt' => '',  
+                'post_content' => ''  
+            ];
+
+            wp_update_post($attachment_data);
+
+            update_post_meta($media_id, '_wp_attachment_image_alt', $post_title);
+
+            // supprimer le fichier temporaire 
             @unlink($file_array['tmp_name']);
 
             set_post_thumbnail($post_id, $media_id);
