@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 6.6.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.1  
+**Stable tag:** 1.2 
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -27,6 +27,7 @@ WP Ideogram API est un plugin vous permettant de générer automatiquement des i
 5. **Définissez le format** : Il y a une dizaine de formats d'image que vous pouvez sélectionner dans la page d'option.
 6. **Compresser l'image** : Choisissez un taux de compression ( entre 0 et 10 ) pour réduire le poids des images.
 7. **Conversion automatique** : Le plugin convertit automatiquement le PNG d'Ideogram en JPG.
+8. **Remplissage des attributs** : Rempli automatiquement les valeurs des attributs alt/title des images en fonction du titre de la publication
    
 ## Installation
 
@@ -54,6 +55,10 @@ Vous pouvez obtenir une clé API en vous inscrivant sur le site d'Ideogram et en
 Pour chaque publication sélectionnée, le plugin envoie le titre de la publication à l'API Ideogram. L'API génère une image en fonction de ce titre, télécharge l'image avant de la définir comme image mise en avant pour la publication.
 
 ## Changelog
+
+### 1.2
+* Remplissage des alt/title des images générées en auto
+  
 ### 1.1
 * Conversion automatique en JPG
 * Compresser l'image (de 0 à 10) et réduire son poids 
