@@ -45,6 +45,7 @@ function generate_featured_image_action() {
         if (isset($data['data'][0]['url'])) {
             $image_url = esc_url_raw($data['data'][0]['url']);
 
+           
             require_once(ABSPATH . 'wp-admin/includes/file.php');
             require_once(ABSPATH . 'wp-admin/includes/media.php');
             require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -80,7 +81,7 @@ function generate_featured_image_action() {
             $quality = ($quality_level * 10); // Convertir la qualité utilisateur en compression (inversé)
             imagejpeg($image, $tmp_jpeg, 100 - $quality);
             imagedestroy($image);
-            @unlink($tmp); 
+            @unlink($tmp);
 
             $file_array = array(
                 'name' => $filename,
@@ -93,24 +94,29 @@ function generate_featured_image_action() {
                 wp_send_json_error(['data' => 'Erreur lors de l\'upload de l\'image.']);
             }
 
-            // mettre à jour les attributs alt/ title
+            // Mettre à jour les attributs alt/title
             $attachment_data = [
                 'ID' => $media_id,
                 'post_title' => $post_title,
                 'post_excerpt' => '',  
                 'post_content' => ''  
             ];
-
+            
             wp_update_post($attachment_data);
-
             update_post_meta($media_id, '_wp_attachment_image_alt', $post_title);
 
-            // supprimer le fichier temporaire 
-            @unlink($file_array['tmp_name']);
-
+            // mettre l'image en avant
             set_post_thumbnail($post_id, $media_id);
 
-            wp_send_json_success(['data' => 'Image téléchargée et mise en avant.']);
+            // URL de l'image finale (après être converti)
+            $local_image_url = wp_get_attachment_url($media_id);
+
+         
+            wp_send_json_success([
+                'data' => 'Image téléchargée et mise en avant.',
+                'thumbnail_url' => $local_image_url, 
+                'media_id' => $media_id 
+            ]);
         } else {
             wp_send_json_error(['data' => 'L\'URL de l\'image n\'a pas été retournée par l\'API.']);
         }
