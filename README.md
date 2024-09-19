@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 6.6.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.3  
+**Stable tag:** 1.4  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -15,7 +15,7 @@ Des fonctionnalités avancées pour gérer les images mises en avant en utilisan
 
 ### WP Ideogram API - Génération Automatisée d'Images Mise en Avant
 
-WP Ideogram API est un plugin vous permettant de générer automatiquement des images mises en avant pour vos publications en utilisant l'API Ideogram. Automatisez la gestion visuelle de votre site sans effort.
+WP Ideogram API est un plugin vous permettant de générer automatiquement des images pour vos publications en utilisant l'API Ideogram. Automatisez la gestion visuelle de votre site sans effort.
 
 [![Voir le tutoriel](https://img.youtube.com/vi/dBRef1YtBig/maxresdefault.jpg)](https://www.youtube.com/watch?v=dBRef1YtBig&ab_channel=KevinBenabdelhak)
 
@@ -28,6 +28,7 @@ WP Ideogram API est un plugin vous permettant de générer automatiquement des i
 6. **Compresser l'image** : Choisissez un taux de compression ( entre 0 et 10 ) pour réduire le poids des images.
 7. **Conversion automatique** : Le plugin convertit automatiquement le PNG d'Ideogram en JPG.
 8. **Remplissage des attributs** : Rempli automatiquement les valeurs des attributs alt/title des images en fonction du titre de la publication
+9. **Générer une image à partir d'une sélection** : Générez des images en sélectionnant le texte d'un article (fonctionne avec l'éditeur par défaut de WordPress)
    
 ## Installation
 
@@ -56,6 +57,9 @@ Pour chaque publication sélectionnée, le plugin envoie le titre de la publicat
 
 ## Changelog
 
+### 1.4 
+* Générez des images en sélectionnant du texte dans l'éditeur par défaut de WordPress
+  
 ### 1.3
 * Ajout d'un bouton de génération d'image directement dans les publications (postbox image mise en avant)
 
