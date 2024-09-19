@@ -13,7 +13,7 @@ function generate_featured_image_action() {
     $aspect_ratio = get_option('wp_ideogram_aspect_ratio', 'ASPECT_10_16');
     $quality_level = intval(get_option('wp_ideogram_quality_level', 5)); // niveau de qualité (inversé)
 
-    $prompt = sanitize_text_field($post_title . ' ' . $additional_text);
+    $prompt = sanitize_text_field($post_title . ' | Voici les instructions pour le style :' . $additional_text);
 
     $api_key = get_option('wp_ideogram_api_key');
     if (!$api_key) {
