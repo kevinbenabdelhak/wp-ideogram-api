@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 6.6.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.4  
+**Stable tag:** 1.5   
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -57,6 +57,9 @@ Pour chaque publication sélectionnée, le plugin envoie le titre de la publicat
 
 ## Changelog
 
+### 1.5 
+* Correction style du bouton "générer une image" dans l'éditeur
+  
 ### 1.4 
 * Générez des images en sélectionnant du texte dans l'éditeur par défaut de WordPress
   
