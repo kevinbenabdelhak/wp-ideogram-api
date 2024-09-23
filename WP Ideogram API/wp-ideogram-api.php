@@ -3,7 +3,7 @@
  * Plugin Name: WP Ideogram API
  * Plugin URI: https://kevin-benabdelhak.fr/plugins/wp-ideogram-api/
  * Description: WP Ideogram API est un plugin qui génère vos images mises en avant sur vos publications en passant par l'API d'Ideogram.
- * Version: 1.4
+ * Version: 1.5
  * Author: Kevin Benabdelhak
  * Author URI: https://kevin-benabdelhak.fr/
  * Contributors: kevinbenabdelhak

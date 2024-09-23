@@ -33,7 +33,7 @@ function wp_ideogram_add_custom_script() {
                     right: '270px',
                     padding: '10px',
                     backgroundColor: '#c21826',
-					color:'#fff',
+                    color:'#fff',
                     border: '1px solid #ccc',
                     zIndex: 10000,
                     display: 'none'
@@ -84,14 +84,7 @@ function wp_ideogram_add_custom_script() {
                             text: 'Générer une image',
                             class: 'button button-primary wp-ideogram-generate-button'
                         }).css({
-                            margin: '10px 0',
-                            display: 'block',
-							
-                            position: 'absolute',
-    
-                          zIndex: '100000000',
-                             top: '10px',
-                         left: '145px'
+            
                         }).insertBefore('#wp-content-media-buttons');
 
                         generateButton.on('click', function() {
