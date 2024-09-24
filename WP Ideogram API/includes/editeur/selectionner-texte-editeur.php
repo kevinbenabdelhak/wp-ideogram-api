@@ -4,12 +4,10 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-
 function wp_ideogram_add_custom_script() {
     $screen = get_current_screen();
     if ($screen->base === 'post') { 
-
-
+        
         // récupère les options du plugin
         $aspect_ratio = get_option('wp_ideogram_aspect_ratio', 'ASPECT_10_16');
         $magic_prompt_option = get_option('wp_ideogram_magic_prompt_option', 'AUTO');
@@ -17,23 +15,20 @@ function wp_ideogram_add_custom_script() {
         $quality_level = get_option('wp_ideogram_quality_level', 5);
         ?>
 
-
-
-        <!-- js pour générer le boutton   -->      
+        <!-- js pour générer le bouton   -->      
         <script type="text/javascript">
-          
             jQuery(document).ready(function($) {
                 var generateButton;
                 var loader = $('<div>', {
                     text: 'Génération en cours...',
                     class: 'wp-ideogram-loader'
                 }).css({
-                  position: 'fixed',
+                    position: 'fixed',
                     top: '40px', 
                     right: '270px',
                     padding: '10px',
                     backgroundColor: '#c21826',
-                    color:'#fff',
+                    color: '#fff',
                     border: '1px solid #ccc',
                     zIndex: 10000,
                     display: 'none'
@@ -58,7 +53,6 @@ function wp_ideogram_add_custom_script() {
                 }
 
                 function handleErrorResponse(response) {
-                  
                     var errorMessage;
 
                     if (typeof response === 'object' && response.responseJSON && response.responseJSON.data) {
@@ -70,11 +64,21 @@ function wp_ideogram_add_custom_script() {
                     alert('Erreur: ' + errorMessage);
                 }
 
-                function showGenerateButton(e) {
-                    var selectedText = tinymce.editors['content'].selection.getContent({format: 'text'});
-                    var selectedNode = tinymce.activeEditor.selection.getNode();
+                function getSelectedHTML() {
+                    var selectedRange = tinymce.activeEditor.selection.getRng();
+                    var parentNode = selectedRange.commonAncestorContainer;
+                    if (parentNode.nodeType === 3) {
+                        parentNode = parentNode.parentNode;
+                    }
+                    var html = tinymce.activeEditor.selection.getContent({format: 'html'});
+                    return { html, parentNode, selectedRange };
+                }
 
-
+                function showGenerateButton() {
+                    var selectedData = getSelectedHTML();
+                    var selectedText = selectedData.html;
+                    var selectedRange = selectedData.selectedRange;
+                    var parentNode = selectedData.parentNode;
 
                     if (selectedText.length > 0) {
                         if (generateButton) {
@@ -84,7 +88,7 @@ function wp_ideogram_add_custom_script() {
                             text: 'Générer une image',
                             class: 'button button-primary wp-ideogram-generate-button'
                         }).css({
-            
+                            marginLeft: '10px'
                         }).insertBefore('#wp-content-media-buttons');
 
                         generateButton.on('click', function() {
@@ -103,13 +107,24 @@ function wp_ideogram_add_custom_script() {
                                     quality_level: "<?php echo esc_js($quality_level); ?>"
                                 },
                                 success: function(response) {
-                                
                                     if (response.success) {
                                         var img = $('<img>', { src: response.data.image_url });
 
-                                        // insérer l'image juste après le noeud d'origine
-                                        tinymce.activeEditor.dom.insertAfter(tinymce.activeEditor.dom.create('p', {}, img.prop('outerHTML')), selectedNode);
+                                        // Insérer l'image juste après le noeud parent si le parent est un bloc (comme h2)
+                                        if (parentNode.nodeType === 1 && parentNode.tagName.startsWith('H')) {
+                                            $(img).insertAfter(parentNode);
+                                        } else {
+                                            // Créer un nœud de span temporaire pour l'insertion de l'image
+                                            var tempSpan = document.createElement("span");
+                                            tempSpan.innerHTML = img[0].outerHTML;
 
+                                            // Utiliser la plage de sélection pour insérer l'image directement après la sélection
+                                            selectedRange.collapse(false);  // false pour placer le curseur après la sélection
+                                            selectedRange.insertNode(tempSpan.firstChild);
+
+                                            tinymce.activeEditor.selection.setRng(selectedRange);  // Re-focalisez l'éditeur après l'insertion de l'image
+                                        }
+                                        
                                     } else {
                                         handleErrorResponse(response);
                                     }
@@ -120,7 +135,7 @@ function wp_ideogram_add_custom_script() {
                                     hideLoader();
                                 }
                             });
-                            generateButton.remove(); // supprimer le bouton après clic
+                            generateButton.remove(); // Supprimer le bouton après clic
                         });
                     } else if (generateButton) {
                         generateButton.remove();
@@ -130,13 +145,16 @@ function wp_ideogram_add_custom_script() {
                 if (typeof tinymce !== 'undefined' && tinymce.editors['content']) {
                     var editor = tinymce.editors['content'];
                     editor.on('init', function() {
-               
                         var iframe = document.querySelector('#content_ifr').contentWindow;
 
-                        $(iframe.document.body).on('mouseup', function(e) {
-                     
-                            showGenerateButton(e);
+                        $(iframe.document.body).on('mouseup keyup', function() {
+                            showGenerateButton();
                         });
+
+                        $(iframe.document.body).on('dblclick selectionchange', function() {
+                            showGenerateButton();
+                        });
+
                     });
                 } else {
                     console.error('TinyMCE n\'est pas défini');
