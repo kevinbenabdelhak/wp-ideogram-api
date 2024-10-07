@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 6.6.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.6  
+**Stable tag:** 1.7  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -57,9 +57,11 @@ Pour chaque publication sélectionnée, le plugin envoie le titre de la publicat
 
 ## Changelog
 
+### 1.7
+* Ajout d'un champ optionnel pour gérer le prompt d'image mise en avant dans la box d'image sur publication seule
+
 ### 1.6
 * Correction lors de la selection d'un texte grâce à un double clic,  l'image ne s'intégrait pas bien dans l'éditeur
-
   
 ### 1.5 
 * Correction style du bouton "générer une image" dans l'éditeur
