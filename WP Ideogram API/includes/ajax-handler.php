@@ -3,17 +3,18 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-
 function generate_featured_image_action() {
     check_ajax_referer('generate_featured_image_nonce', 'security');
 
     $post_id = intval($_POST['post_id']);
     $post_title = get_the_title($post_id);
+    
+    // Récupérer le prompt personnalisé s'il est fourni
+    $custom_prompt = !empty($_POST['custom_prompt']) ? sanitize_text_field($_POST['custom_prompt']) : '';
+    
+    // Utiliser le prompt personnalisé s'il existe sinon utiliser le titre de la publication
     $additional_text = get_option('wp_ideogram_additional_text', '');
-    $aspect_ratio = get_option('wp_ideogram_aspect_ratio', 'ASPECT_10_16');
-    $quality_level = intval(get_option('wp_ideogram_quality_level', 5)); // niveau de qualité (inversé)
-
-    $prompt = sanitize_text_field($post_title . ' | Voici les instructions pour le style :' . $additional_text);
+    $prompt = !empty($custom_prompt) ? $custom_prompt : sanitize_text_field($post_title . ' | Voici les instructions pour le style :' . $additional_text);
 
     $api_key = get_option('wp_ideogram_api_key');
     if (!$api_key) {
@@ -28,7 +29,7 @@ function generate_featured_image_action() {
         'body' => wp_json_encode([
             'image_request' => [
                 'prompt' => $prompt,
-                'aspect_ratio' => $aspect_ratio,
+                'aspect_ratio' => get_option('wp_ideogram_aspect_ratio', 'ASPECT_10_16'),
                 'model' => 'V_2',
                 'magic_prompt_option' => 'AUTO'
             ]
@@ -45,7 +46,6 @@ function generate_featured_image_action() {
         if (isset($data['data'][0]['url'])) {
             $image_url = esc_url_raw($data['data'][0]['url']);
 
-           
             require_once(ABSPATH . 'wp-admin/includes/file.php');
             require_once(ABSPATH . 'wp-admin/includes/media.php');
             require_once(ABSPATH . 'wp-admin/includes/image.php');
@@ -78,6 +78,7 @@ function generate_featured_image_action() {
             }
 
             // Compression de l'image
+            $quality_level = intval(get_option('wp_ideogram_quality_level', 5)); // niveau de qualité (inversé)
             $quality = ($quality_level * 10); // Convertir la qualité utilisateur en compression (inversé)
             imagejpeg($image, $tmp_jpeg, 100 - $quality);
             imagedestroy($image);
@@ -111,7 +112,6 @@ function generate_featured_image_action() {
             // URL de l'image finale (après être converti)
             $local_image_url = wp_get_attachment_url($media_id);
 
-         
             wp_send_json_success([
                 'data' => 'Image téléchargée et mise en avant.',
                 'thumbnail_url' => $local_image_url, 

@@ -8,13 +8,14 @@ function wp_ideogram_add_featured_image_button() {
     add_action('admin_post_thumbnail_html', 'wp_ideogram_add_elements_to_thumbnail_box');
 }
 add_action('admin_init', 'wp_ideogram_add_featured_image_button');
-
-
 function wp_ideogram_add_elements_to_thumbnail_box($content) {
     ob_start();
     ?>
     <div id="wp-ideogram-generate-featured-image" style="margin-top: 10px;">
-        <button type="button" class="button button-primary" id="generate-featured-image"><?php esc_html_e('Générer une image mise en avant', 'wp-ideogram'); ?></button>
+     
+       
+        <input type="text" id="custom-prompt" style="width: 100%;" placeholder="<?php esc_attr_e('Modifier le prompt (laisser vide pour utiliser le titre)', 'wp-ideogram'); ?>" value="<?php echo esc_attr(get_the_title()); ?>">
+        <button type="button" style="margin-top:10px;" class="button button-primary" id="generate-featured-image"><?php esc_html_e('Générer une image mise en avant', 'wp-ideogram'); ?></button>
     </div>
     <div id="image-generation-loader" style="display: none; margin-top: 10px;">
         <span class="spinner is-active"></span> <span id="generation-progress"><?php esc_html_e('Chargement...', 'wp-ideogram'); ?></span>
@@ -25,6 +26,9 @@ function wp_ideogram_add_elements_to_thumbnail_box($content) {
             $('#generate-featured-image').on('click', function() {
                 var post_id = <?php echo get_the_ID(); ?>; 
                 var nonceVal = '<?php echo wp_create_nonce('generate_featured_image_nonce'); ?>';
+                
+                // Récupérer la valeur du champ de saisie
+                var customPrompt = $('#custom-prompt').val() || '<?php echo esc_js(get_the_title()); ?>';
 
                 // Afficher le loader
                 $('#image-generation-loader').show();
@@ -37,7 +41,8 @@ function wp_ideogram_add_elements_to_thumbnail_box($content) {
                     data: {
                         action: 'generate_featured_image_action',
                         post_id: post_id,
-                        security: nonceVal
+                        security: nonceVal,
+                        custom_prompt: customPrompt // Ajouter le prompt personnalisé
                     },
                     success: function(response) {
                         var resultDiv = $('#image-generation-result');
@@ -48,7 +53,6 @@ function wp_ideogram_add_elements_to_thumbnail_box($content) {
                             // Afficher le lien de l'image générée
                             resultDiv.append("<div class='notice notice-success'><p><?php esc_html_e('Image générée:', 'wp-ideogram'); ?> <a href='" + response.data.thumbnail_url + "' target='_blank'>" + response.data.thumbnail_url + "</a></p></div>");
 
-                          
                             var mediaId = response.data.media_id;
                             $('#_thumbnail_id').val(mediaId); 
 
