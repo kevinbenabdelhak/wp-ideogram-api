@@ -47,7 +47,7 @@ WP Ideogram API est un plugin vous permettant de générer automatiquement des i
    - Allez dans "Réglages" > "WP Ideogram API".
    - Entrez votre clé API Ideogram.
 
-## Frequently Asked Questions
+## FAQ
 
 ### Comment obtenir une clé API Ideogram ?
 Vous pouvez obtenir une clé API en vous inscrivant sur le site d'Ideogram et en demandant une clé via leur interface.
@@ -55,7 +55,7 @@ Vous pouvez obtenir une clé API en vous inscrivant sur le site d'Ideogram et en
 ### Que fait exactement ce plugin avec mes publications ?
 Pour chaque publication sélectionnée, le plugin envoie le titre de la publication à l'API Ideogram. L'API génère une image en fonction de ce titre, télécharge l'image avant de la définir comme image mise en avant pour la publication.
 
-## Changelog
+## MAJ
 
 ### 1.7
 * Ajout d'un champ optionnel pour gérer le prompt d'image mise en avant dans la box d'image sur publication seule
