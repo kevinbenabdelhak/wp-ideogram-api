@@ -10,7 +10,7 @@ Tested up to: 6.6.2
 
 Requires PHP: 7.0
 
-Stable tag: 1.7
+Stable tag: 1.8
 
 License: GPLv2 or later
 
@@ -98,6 +98,10 @@ Pour chaque publication sélectionnée, le plugin envoie le titre de la publicat
 
 
 == Changelog ==
+
+= 1.8 =
+
+* Correctif appliqué à la suppression d'image (la fonction dans postbox se lançait quand on supprimais une image)
 
 = 1.7 =
 

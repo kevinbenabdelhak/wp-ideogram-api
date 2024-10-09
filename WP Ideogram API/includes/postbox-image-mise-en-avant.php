@@ -27,7 +27,7 @@ function wp_ideogram_add_elements_to_thumbnail_box($content) {
                 var post_id = <?php echo get_the_ID(); ?>; 
                 var nonceVal = '<?php echo wp_create_nonce('generate_featured_image_nonce'); ?>';
                 
-                // Récupérer la valeur du champ de saisie
+                // récupérer la valeur du champ de saisie
                 var customPrompt = $('#custom-prompt').val() || '<?php echo esc_js(get_the_title()); ?>';
 
                 // Afficher le loader
@@ -50,7 +50,7 @@ function wp_ideogram_add_elements_to_thumbnail_box($content) {
                         $('#generate-featured-image').attr('disabled', false); 
 
                         if (response.success) {
-                            // Afficher le lien de l'image générée
+                            // afficher le lien de l'image générée
                             resultDiv.append("<div class='notice notice-success'><p><?php esc_html_e('Image générée:', 'wp-ideogram'); ?> <a href='" + response.data.thumbnail_url + "' target='_blank'>" + response.data.thumbnail_url + "</a></p></div>");
 
                             var mediaId = response.data.media_id;
