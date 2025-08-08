@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 6.6.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 1.8   
+**Stable tag:** 1.9      
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -56,6 +56,8 @@ Vous pouvez obtenir une clé API en vous inscrivant sur le site d'Ideogram et en
 Pour chaque publication sélectionnée, le plugin envoie le titre de la publication à l'API Ideogram. L'API génère une image en fonction de ce titre, télécharge l'image avant de la définir comme image mise en avant pour la publication.
 
 ## MAJ
+### 1.9
+* Ajout de la fonctionnalité "Character Reference" avec Ideogram V3, dans les actions groupées des médias en mode liste. Elle permet de cloner un personnage dans une position différente, ou avec d'autres vêtements etc... (garde le même caractère)
 
 ### 1.8
 * Correction lors de la suppression d’image (la fonction dans le fichier postbox se lançait)
