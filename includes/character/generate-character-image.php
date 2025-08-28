@@ -4,7 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-function wp_ideogram_generate_character_image($image_url, $api_key) {
+function wp_ideogram_generate_character_image($image_url, $api_key, $secondary_prompt = '') {
     require_once(ABSPATH . 'wp-admin/includes/image.php');
     require_once(ABSPATH . 'wp-admin/includes/file.php');
     require_once(ABSPATH . 'wp-admin/includes/media.php');
@@ -16,7 +16,25 @@ function wp_ideogram_generate_character_image($image_url, $api_key) {
         return $temp_file;
     }
     
-    $prompt = get_option('wp_ideogram_character_prompt', 'A photo of the character in a different situation, cartoon style, vibrant colors');
+    $base_prompt = get_option('wp_ideogram_character_prompt', '');
+    error_log('Ideogram Base Prompt: ' . $base_prompt);
+    $secondary_prompt = trim($secondary_prompt);
+    error_log('Ideogram Secondary Prompt: ' . $secondary_prompt);
+
+    $prompts = array();
+    if (!empty($base_prompt)) {
+        $prompts[] = $base_prompt;
+    }
+    if (!empty($secondary_prompt)) {
+        $prompts[] = $secondary_prompt;
+    }
+
+    if (empty($prompts)) {
+        $prompt = 'A photo of the character in a different situation, cartoon style, vibrant colors';
+    } else {
+        $prompt = implode(' ', $prompts);
+    }
+
     $multipart_boundary = '----IdeogramBoundary' . uniqid();
     $request_body = '';
 
@@ -68,7 +86,7 @@ function wp_ideogram_generate_character_image($image_url, $api_key) {
     $data = json_decode($body, true);
 
     if (isset($data['data']) && !empty($data['data'])) {
-        return $data['data'][0];
+        return array('image_data' => $data['data'][0], 'prompt' => $prompt);
     } else {
         error_log('Ideogram: Réponse de l\'API invalide ou aucune image retournée. Réponse complète : ' . $body);
         return new WP_Error('ideogram_api_response_error', 'Réponse de l\'API invalide ou aucune image retournée.');

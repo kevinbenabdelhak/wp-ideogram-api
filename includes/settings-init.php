@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 function wp_ideogram_settings_init() {
     register_setting('wp_ideogram_options_group', 'wp_ideogram_api_key', 'sanitize_text_field');
     register_setting('wp_ideogram_options_group', 'wp_ideogram_additional_text', 'sanitize_text_field');
-    register_setting('wp_ideogram_options_group', 'wp_ideogram_character_prompt', 'sanitize_text_field'); // Nouveau champ pour le prompt de personnage
+    register_setting('wp_ideogram_options_group', 'wp_ideogram_character_prompt', 'sanitize_textarea_field'); // Nouveau champ pour le prompt de personnage
     register_setting('wp_ideogram_options_group', 'wp_ideogram_aspect_ratio', 'sanitize_text_field');
     register_setting('wp_ideogram_options_group', 'wp_ideogram_quality_level', 'wp_ideogram_sanitize_quality_level');
 
