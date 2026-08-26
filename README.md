@@ -5,7 +5,7 @@
 **Requires at least:** 5.0  
 **Tested up to:** 6.6.2  
 **Requires PHP:** 7.0  
-**Stable tag:** 2.0        
+**Stable tag:** 2.1          
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -56,6 +56,8 @@ Vous pouvez obtenir une clé API en vous inscrivant sur le site d'Ideogram et en
 Pour chaque publication sélectionnée, le plugin envoie le titre de la publication à l'API Ideogram. L'API génère une image en fonction de ce titre, télécharge l'image avant de la définir comme image mise en avant pour la publication.
 
 ## MAJ
+### 2.1  
+* Correctif depuis la MAJ 7.1 de WP
 
 ### 2.0   
 * Character Reference : Ajout du mode Bulk (générer plusieurs images en une seule fois)
