@@ -10,7 +10,7 @@ Tested up to: 6.6.2
 
 Requires PHP: 7.0
 
-Stable tag: 2.0
+Stable tag: 2.1
 
 License: GPLv2 or later
 
@@ -99,6 +99,9 @@ Pour chaque publication sélectionnée, le plugin envoie le titre de la publicat
 
 == Changelog ==
 
+= 2.1 =
+
+* Correction pous la MAJ de WP 7.1
 
 
 = 2.0 =
